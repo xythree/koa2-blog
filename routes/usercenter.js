@@ -3,6 +3,17 @@ let mon = require("../modules/model")
 
 module.exports = (router, render) => {
 
+    router.use("/usercenter/*", async(ctx, next) => {
+        let username = ctx.session.username || "xythree"
+
+        if (username) {
+            ctx.userinfo = await mon.Users.find({ username })
+            await next()
+        } else {
+            ctx.redirect("/login")
+        }
+    })
+
     router.get("/usercenter/index", async ctx => {
         let html = await render("usercenter/index")
 
@@ -14,11 +25,9 @@ module.exports = (router, render) => {
         })
     })
 
-
     router.get("/api/usercenter/recite", async ctx => {
         let params = ctx.request.query
         let username = ctx.session.username || "xythree"
-
         let result = ""
 
         if (params.limit) {
@@ -40,6 +49,7 @@ module.exports = (router, render) => {
         switch (params.type) {
             case "delete":
                 let id = JSON.parse(params.id)
+
                 if (id.length) {
                     result = await new Promise((resolve, reject) => {
                         let i = 0
@@ -60,13 +70,6 @@ module.exports = (router, render) => {
         }
 
         ctx.body = result
-    })
-
-    mon.music.create({
-        username: "xythree",
-        songname: "1" + +new Date,
-        name: "1",
-        special: "1"
     })
 
 }

@@ -11,10 +11,42 @@ const server = require("http").createServer(app.callback())
 
 const config = require("./config")
 
-
 const render = views("./views", {
     ext: "ejs"
 })
+
+app.use(require("./modules/request")())
+
+app.use(async(ctx, next) => {
+
+    ctx.set({
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept"
+    })
+
+    await next()
+})
+
+const minify = require('html-minifier').minify
+
+app.use(async(ctx, next) => {
+
+    await next()
+
+    if (!ctx.response.is('html')) return
+
+    let body = ctx.body
+    if (!body || body.pipe) return
+
+    if (Buffer.isBuffer(body)) body = body.toString()
+    ctx.body = minify(body, {
+        removeComments: true, //去除注释
+        minifyJS: true,
+        minifyCSS: true,
+        collapseWhitespace: true
+    })
+})
+
 
 app.use(session({
     maxAge: 1000 * 60 * 60 * 24,
@@ -37,14 +69,18 @@ app.use(serve(path.join(__dirname, "static"), {
     //maxAge: 1000 * 60 * 60 * 24
 }))
 
-
 app.use(router.routes())
+
+
 
 require("./routes/index")(router, render)
 
-
 router.get("/404", async ctx => {
     ctx.body = await render("404")
+})
+
+app.on("error", err => {
+    console.log("err", err)
 })
 
 

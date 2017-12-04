@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html {{manifest}}>
+
+<head>
+
+    <title>{{ title }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="keywords" content="恨水无伤,恨水无伤的小站,前端学习笔记分享！"> {{{ meta }}} {{{ renderStyles() }}}
+</head>
+
+<body>
+
+    <!--vue-ssr-outlet-->
+
+    <!--window-->
+    {{{ renderScripts() }}} {{{ scripts }}}
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?cee74aecb9c5d5d1a46e8bcfe559ddb0";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+
+</html>

@@ -26,12 +26,12 @@ export default {
             animal: 0
         }
     },
-    created() {
+    created() {		
         this.$axios.get("/api/usercenter/recite").then(d => {
             this.animal = d.data[0].limit
 
             this.$watch("animal", v => {
-                this.$axios.get("/api/usercenter/recite?limit=" + v).then(d => {
+                this.$axios.get("/api/usercenter/recite?limit=" + v).then(d => {					
                     if (d.data.ok != 1) {
                         this.$Message.error({
                             content: "设置失败",
@@ -42,6 +42,7 @@ export default {
                 })
             })
         })
+		
     }
 }
 </script>

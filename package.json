@@ -49,6 +49,7 @@
     "request": "^2.83.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
+    "uglifyjs-webpack-plugin": "^1.0.0-beta.3",
     "url-loader": "^0.5.9",
     "vue": "^2.4.4",
     "vue-loader": "^13.0.5",
@@ -56,5 +57,12 @@
     "vue-template-compiler": "^2.4.4",
     "vuex": "^2.4.1",
     "webpack": "^3.6.0"
+  },
+  "devDependencies": {
+    "big-integer": "^1.6.26",
+    "busboy": "^0.2.14",
+    "compression-webpack-plugin": "^1.0.1",
+    "markdown": "^0.5.0",
+    "qr-image": "^3.2.0"
   }
 }

@@ -25,12 +25,15 @@
         max-width: 90%;
     }
 }
+
+.float_right {
+    float: right;
+}
 </style>
 
 
 <template>
-    <div class="usercenter_box">
-
+    <div class="usercenter_box">        
         <Menu mode="horizontal" ref="topMenu" :theme="theme1" @on-select="select" active-name="people">
             <MenuItem name="home">
             <Icon type="home"></Icon>
@@ -40,6 +43,11 @@
             <Icon type="ios-people"></Icon>
             用户中心
             </MenuItem>
+            <MenuItem name="logout" :class="{float_right: true}">
+            <Icon type="log-out"></Icon>
+            退出
+            </MenuItem>
+
         </Menu>
 
         <Col span="4" :class="{leftMenu: true}">
@@ -85,6 +93,7 @@
             </MenuItem>
         </Menu>
         </Col>
+
         <div class="irouterview">
             <router-view></router-view>
         </div>
@@ -94,15 +103,15 @@
 
 <script>
 
-
 let routerActive = {
     word: "set",
     music: "set"
 }
 
-export default {
+export default {    
     data() {
         return {
+            show: false,
             activeName: "",
             openNames: [],
             theme1: "light",
@@ -126,9 +135,6 @@ export default {
                 this.$refs.leftMenu.updateOpened()
             })
         }
-    },
-    mounted() {
-        
     }
 }
 

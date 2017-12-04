@@ -31,8 +31,6 @@
 </template>
 <script>
 
-import axios from "axios"
-
 export default {
     data() {
         return {
@@ -41,6 +39,11 @@ export default {
                 {
                     type: "selection",
                     width: 55,
+                    align: "center"
+                },
+                {
+                    type: "index",
+                    width: 60,
                     align: "center"
                 },
                 {
@@ -58,6 +61,7 @@ export default {
                 {
                     title: "操作",
                     key: "action",
+                    align: "center",
                     width: 80,
                     render: (h, params) => {
                         let _t = this
@@ -159,7 +163,7 @@ export default {
         }
     },
     created() {
-        this.getList()
+        this.getList()		
     }
 }
 </script>

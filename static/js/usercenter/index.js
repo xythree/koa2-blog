@@ -16,7 +16,6 @@ Vue.use(iview)
 
 Vue.use(VueRouter)
 
-
 let routes = [{
     path: "/word",
     component: r => {

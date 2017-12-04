@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>word</title>
+    <link rel="stylesheet" href="/css/word/index.min.css">
+</head>
+
+<body>
+    <div id="word">
+        <word></word>
+    </div>
+    <script>
+        let pos = [<%- pos %>]
+    </script>
+    <script src="/dist/js/word.js"></script>
+    <% include template/tongji.ejs %>
+
+</body>
+
+</html>

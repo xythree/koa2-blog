@@ -1,4 +1,4 @@
-const crypto = require("crypto")
+const crypto = require("../modules/cloudMusicCrypto")
 
 module.exports = (router, render) => {
 
