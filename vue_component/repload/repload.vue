@@ -7,6 +7,7 @@
     width: 0; 
     background: #333;
     transition: all .5s;
+    z-index: 9999;
 }
 .fade-leave {
     opacity: 1;

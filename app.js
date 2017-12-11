@@ -55,6 +55,7 @@ app.use(session({
 
 app.use(require("koa-favicon")(__dirname + '/static/favicon.ico'))
 
+/*
 app.use(require("koa-compress")({
     filter: function(content_type) { //配置过滤的压缩文件的类型
         return /text/i.test(content_type)
@@ -62,6 +63,7 @@ app.use(require("koa-compress")({
     threshold: 2048, //要压缩的最小响应字节
     flush: require('zlib').Z_SYNC_FLUSH //同步的刷新缓冲区数据
 }))
+*/
 
 app.use(bodyparser())
 

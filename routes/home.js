@@ -1,4 +1,4 @@
-const mon = require("../modules/model")
+const sql = require("../modules/sql")
 
 module.exports = (router, render) => {
 
@@ -10,12 +10,38 @@ module.exports = (router, render) => {
     })
 
     router.get("/article", async ctx => {
+        let params = ctx.request.query
+        let result = {},
+            limit = params.limit || 15,
+            skip = params.skip || 0,
+            obj = {}
 
-        let result = await mon.Article.find({}).limit(3).skip(0)
-        console.log(result)
+        result.data = {}
 
-        ctx.body = await { articleList: [], count: 0 }
+        if (params.id) {
 
+            await sql.article.update({ _id: params.id }, {
+                $inc: {
+                    views: 1
+                }
+            })
+
+            result.data = await sql.article.findArticleComment(params.id)
+            result.prev = await sql.article.prev(params.id)
+            result.next = await sql.article.next(params.id)
+
+        } else if (params.txt) {
+
+            result.data = await sql.article.findTitle(params.txt, +skip, +limit)
+
+        } else if (skip != void 0) {
+
+            result.data = await sql.article.find("", +skip, +limit)
+            result.count = await sql.article.count({})
+
+        }
+
+        ctx.body = await result
     })
 
 
