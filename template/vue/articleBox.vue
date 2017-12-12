@@ -3,7 +3,6 @@
     padding: 0 30px 30px;
     min-height: 600px;
     font-size: 16px;
-    margin-bottom: 150px;
 
     .fa-arrow-circle-left {
         cursor: pointer;
@@ -15,7 +14,6 @@
     }
 }
 .iarticle_content_box {
-    padding: 0 30px 30px;
     word-wrap: break-word; 
     word-break: normal; 
     $h: 50px;
@@ -198,20 +196,11 @@
     
     .article_box {
         padding: 0 0 30px;
-        
-        .fa-arrow-circle-left {
-            margin-left: 30px;
-        }
-
     }
     .iarticle_content_box {
         padding: 0;
     }
 
-    .iarticle_prev_next_link,
-    .icomment_box {
-        margin: 0 30px;
-    }
 }
 </style>
 
@@ -251,7 +240,7 @@
                 </template>
             </div>
         </div>
-        <ul class="icomment_list">
+        <ul class="icomment_list" v-if="false" >
             <li v-for="item in commentList">
                 <div class="iportrait">
                     <i class="fa fa-user-o fa-3x"></i>
@@ -265,8 +254,8 @@
                 </div>
             </li>
         </ul>
-        <paginationBox :total="total" :paginationCallBack="paginationCallBack"></paginationBox>
-        <div class="icomment_box">
+        <paginationBox v-if="false"  :total="total" :paginationCallBack="paginationCallBack"></paginationBox>
+        <div class="icomment_box" v-if="false" >
             <form ref="icommentForm" @submit="submitFn">
                 <div class="icomment_name">
                     <label>名称:</label>
@@ -296,9 +285,9 @@
 
 
 <script>
-import axios from "axios"
+
 import xythree from "./../../static/js/xythree"
-import paginationBox from "./../../vue_component/pagination/pagination.vue"
+//import paginationBox from "./../../vue_component/pagination/pagination.vue"
 
 export default {
     data() {
@@ -327,7 +316,7 @@ export default {
         }
     },
     components: {
-        paginationBox
+        //paginationBox
     },
     watch: {
         "$route": "fetchData"
@@ -341,9 +330,11 @@ export default {
             //this.getComment({ skip: ind })
         },
         fetchData() {
+            (document.documentElement || document.body).scrollTop = 0
+
             this.loading_box = true
 
-            axios.get("/article", {
+            this.$axios.get("/article", {
                 params: {
                     id: this.$route.query.id
                 }
@@ -409,8 +400,9 @@ export default {
     },
     mounted() {
         this.fetchData()
+
         //this.$refs.icommentForm.addEventListener("submit", e => {
-            
+
         //})
     }
 }
