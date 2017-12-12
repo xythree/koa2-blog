@@ -4,7 +4,7 @@
 
 <template>
     <div class="">
-        <select_box :selectShow="selectShow" :value="value" :selectBoxCallBack="selectBoxCallBack">
+        <select_box >
         </select_box>
         
         <pre>

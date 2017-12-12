@@ -89,7 +89,7 @@ $color: #f92672;
             left: 0;
             width: 100%;
             background: rgba(0, 0, 0, .5);
-            height: 3000px;            
+            height: 3000px;
             transition: all .5s;
             z-index: 99;
         }

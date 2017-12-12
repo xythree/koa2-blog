@@ -4,7 +4,7 @@
 
 <template>
     <div class="">
-        <select_list :selectList="selectList" :defalutValue="defalutValue" :selectListCallBack="selectListCallBack">
+        <select_list :selectList="selectList" :selectListCallBack="selectListCallBack">
         </select_list>
         <p>已选: {{demoText}}</p>
         <pre>

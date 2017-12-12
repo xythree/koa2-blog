@@ -8,7 +8,7 @@
 <template>
     <div class="demo" >
         <br /> <br /><br /><br />
-        <process_box :value="value" :drag="drag" :config="config" :processCallBack="processCallBack" ></process_box>
+        <process_box :value="value" :drag="drag" :processCallBack="processCallBack" ></process_box>
         <br />
         <p>
             <button @click="reduce">&nbsp;减0.1&nbsp;</button> 进度:{{this.v}} <button @click="add">&nbsp;加0.1&nbsp;</button>

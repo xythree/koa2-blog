@@ -40,6 +40,9 @@ export default {
     },
     components: {
         tree_box
+    },
+    beforeCreate() {
+        //this.$options.components.tree_content = require('./tree_box.vue')
     }
 }
 </script>

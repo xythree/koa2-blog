@@ -60,7 +60,7 @@
             <div class="idrag_content"></div>
         </div>
     
-        <div v-show="_target" ref="empty" class="idrag_box empty"></div>
+        <div v-show="targetElement" ref="empty" class="idrag_box empty"></div>
     
     </div>
 </template>
@@ -87,7 +87,7 @@ export default {
             _y: 0,
             xMax: 0,
             yMax: 0,
-            _target: false,
+            targetElement: false,
             index: "",
             temp: "",
             empty: "",
@@ -128,31 +128,35 @@ export default {
             this.arr.splice(num, 0, temp)
         },
         downFn(e, index) {
+            try{
             let _e = e
             if (_e.targetTouches) {
                 _e = _e.targetTouches[0]
             }
             if (e.currentTarget != e.target) return
-            this._target = e.currentTarget.parentNode
-            if (this._target.className != "idrag_box") return
-            let _offset = this.offset(this._target)
+            this.targetElement = e.currentTarget.parentNode
+            if (this.targetElement.className != "idrag_box") return
+            let _offset = this.offset(this.targetElement)
 
-            this._target.style.position = "fixed"
+            this.targetElement.style.position = "fixed"
             this.dragStatus = true
             this.ax = _offset.left
             this.ay = _offset.top
             this._x = _e.pageX - _offset.left
             this._y = _e.pageY - _offset.top
-            this._target.style.left = _offset.left + "px"
-            this._target.style.top = _offset.top + "px"
+            this.targetElement.style.left = _offset.left + "px"
+            this.targetElement.style.top = _offset.top + "px"
             this.index = this.temp = index
             this.empty = this.$refs.empty
-            this.empty.style.height = this._target.offsetHeight - 2 + "px"
+            this.empty.style.height = this.targetElement.offsetHeight - 2 + "px"
             this.$refs.idrag_parent.insertBefore(this.empty, this.$refs.idrag_box[index])
             this.calcWH()
+            }catch(e) {
+                console.log(e)
+            }
         },
         calcWH() {
-            let idrag_box = this._target
+            let idrag_box = this.targetElement
 
             this.xMax = window.innerWidth - idrag_box.offsetWidth
             this.yMax = window.innerHeight - idrag_box.offsetHeight
@@ -170,7 +174,7 @@ export default {
             if (e.targetTouches) {
                 e.preventDefault()
                 _e = e.targetTouches[0]
-            }            
+            }
             let x = _e.pageX - this._x
             let y = _e.pageY - this._y
 
@@ -189,7 +193,7 @@ export default {
             this.$refs.idrag_box.forEach((t, i) => {
                 let _offset = this.offset(t)
 
-                if (this._target != t) {
+                if (this.targetElement != t) {
                     if (this.x >= _offset.left && this.x <= _offset.left + t.offsetWidth && this.y >= _offset.top && this.y <= _offset.top + t.offsetHeight) {
                         this.index = i
                         if (this.dir > 0) {
@@ -213,8 +217,8 @@ export default {
             if (this.ax >= _empty.left && this.ax <= _empty.left + this.empty.offsetWidth && this.ay >= _empty.top && this.ay <= _empty.top + this.empty.offsetHeight) {
                 this.index = this.temp
             }
-            this._target.style.left = this.x + "px"
-            this._target.style.top = this.y + "px"
+            this.targetElement.style.left = this.x + "px"
+            this.targetElement.style.top = this.y + "px"
 
         }, false)
 
@@ -223,18 +227,18 @@ export default {
         doc.addEventListener(_end, e => {
             this.dragStatus = false
 
-            if (this._target) {
+            if (this.targetElement) {
                 let _empty = this.offset(this.$refs.empty)
 
-                this._target.style.left = _empty.left + "px"
-                this._target.style.top = _empty.top - doc.body.scrollTop + "px"
+                this.targetElement.style.left = _empty.left + "px"
+                this.targetElement.style.top = _empty.top - doc.body.scrollTop + "px"
 
                 clearTimeout(timer)
 
                 timer = setTimeout(() => {
 
-                    this._target.removeAttribute("style")
-                    this._target = false
+                    this.targetElement.removeAttribute("style")
+                    this.targetElement = false
 
                     //if (this.x == 0 || this.y == 0) return
                     //if (this.index != this.temp) {

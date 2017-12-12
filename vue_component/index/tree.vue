@@ -57,7 +57,7 @@ export default {
     },
     components: {
         tree_box
-    },
+    },    
     methods: {
         treeCallBack(arr) {
             let temp = []

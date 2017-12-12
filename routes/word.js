@@ -71,22 +71,23 @@ module.exports = (router, render) => {
         let limit = +(params.limit || 10)
         let skip = params.skip * limit
 
-        if (is_Login.length) {
+        if (!is_Login.length) {
             result.code = 1
             result.result = await sql.words.find({}).limit(limit).skip(skip)
-
-            await sql.recite.update({
-                uid: is_Login[0]._id
-            }, {
-                $set: {
-                    uid: is_Login[0]._id,
-                    username: is_Login[0].username,
-                    limit: +params.limit,
-                    skip: +params.skip
-                }
-            }, {
-                upsert: true
-            })
+                /*
+                await sql.recite.update({
+                    uid: is_Login[0]._id
+                }, {
+                    $set: {
+                        uid: is_Login[0]._id,
+                        username: is_Login[0].username,
+                        limit: +params.limit,
+                        skip: +params.skip
+                    }
+                }, {
+                    upsert: true
+                })
+                */
         } else {
             result.code = 0
             result.msg = "未登录"

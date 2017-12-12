@@ -23,7 +23,6 @@
     }
 }
 
-
 </style>
 
 <template>
@@ -36,6 +35,7 @@
 </template>
 
 <script>
+//import tree_content from "./tree_content.vue"
 
 export default {
     props: ["children", "indexes", "treeCallBack"],
@@ -48,6 +48,9 @@ export default {
         clickFn(num) {
             this.treeCallBack && this.treeCallBack(this.indexes.concat(num))
         }
+    },
+    components: {
+        //tree_content
     },
     beforeCreate() {
         this.$options.components.tree_content = require('./tree_content.vue')

@@ -1,7 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
 
-import app from "../../../vue_component/app_component.vue"
+import app from "vue_component/app_component.vue"
 
 Vue.use(VueRouter)
 
@@ -29,44 +29,44 @@ let routes = [{
 }, {
     path: "/pagination",
     components: {
-        default: r => require(["../../../vue_component/index/pagination.vue"], r)
+        default: r => require(["vue_component/index/pagination.vue"], r)
     }
 }, {
     path: "/selectBox",
-    component: r => require(["../../../vue_component/index/selectBox.vue"], r)
+    component: r => require(["vue_component/index/selectBox.vue"], r)
 }, {
     path: "/selectList",
-    component: r => require(["../../../vue_component/index/selectList.vue"], r)
+    component: r => require(["vue_component/index/selectList.vue"], r)
 }, {
     path: "/calendar",
-    component: r => require(["../../../vue_component/index/calendar.vue"], r)
+    component: r => require(["vue_component/index/calendar.vue"], r)
 }, {
     path: "/calendarSelect",
-    component: r => require(["../../../vue_component/index/calendarSelect.vue"], r)
+    component: r => require(["vue_component/index/calendarSelect.vue"], r)
 }, {
     path: "/waveButton",
-    component: r => require(["../../../vue_component/index/waveButton.vue"], r)
+    component: r => require(["vue_component/index/waveButton.vue"], r)
 }, {
     path: "/alert",
-    component: r => require(["../../../vue_component/index/alert.vue"], r)
+    component: r => require(["vue_component/index/alert.vue"], r)
 }, {
     path: "/city",
-    component: r => require(["../../../vue_component/index/city.vue"], r)
+    component: r => require(["vue_component/index/city.vue"], r)
 }, {
     path: "/scrollBox",
-    component: r => require(["../../../vue_component/index/scrollBox.vue"], r)
+    component: r => require(["vue_component/index/scrollBox.vue"], r)
 }, {
     path: "/processBox",
-    component: r => require(["../../../vue_component/index/processBox.vue"], r)
+    component: r => require(["vue_component/index/processBox.vue"], r)
 }, {
     path: "/tree",
-    component: r => require(["../../../vue_component/index/tree.vue"], r)
+    component: r => require(["vue_component/index/tree.vue"], r)
 }, {
     path: "/drag",
-    component: r => require(["../../../vue_component/index/dragBox.vue"], r)
+    component: r => require(["vue_component/index/dragBox.vue"], r)
 }, {
     path: "/dragLayout",
-    component: r => require(["../../../vue_component/index/dragLayout.vue"], r)
+    component: r => require(["vue_component/index/dragLayout.vue"], r)
 }]
 
 

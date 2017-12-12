@@ -122,9 +122,9 @@
 
 <script>
 import axios from "axios"
-import { cookie } from "./../../static/js/cookie"
-import { ua } from "./../../static/js/xythree"
-import alert_box from "./../../vue_component/alert/alert.vue"
+import { cookie } from "js/cookie"
+import { ua } from "js/xythree"
+import alert_box from "vue_component/alert/alert.vue"
 
 export default {
     data() {
@@ -192,10 +192,21 @@ export default {
             this.search()
             this.scroll()
         },
+        prevWord(){
+            let index = --this.reciteIndex
+
+            this.reciteIndex = index < 0 ? this.reciteWordList.length - 1 : index
+            
+            this.resetFn()
+        },
         nextWord() {
             let index = ++this.reciteIndex
 
             this.reciteIndex = index > this.reciteWordList.length - 1 ? 0 : index
+            
+            this.resetFn()
+        },
+        resetFn() {
             this.value = this.reciteWordList[this.reciteIndex].word
             this.textFn()
             this.search()
@@ -249,20 +260,20 @@ export default {
         },
         tabsFn(arg) {
             if (arg) {
-                axios.get("/recite/info").then(result => {
-                    let data = result.data
+                //axios.get("/recite/info").then(result => {
+                    //let data = result.data
 
-                    if (data.code == 0) {
-                        this.alertBoxStatus = true
-                        this.alertBoxText = "请先登录!"
-                        this.showStatus = true
-                        return
-                    }
-                    this.radioValue = (data.result && data.result.limit) || 10
-                    this.skip = (data.result && data.result.skip) || 0
+                    //if (data.code == 0) {
+                        //this.alertBoxStatus = true
+                        //this.alertBoxText = "请先登录!"
+                        //this.showStatus = true
+                        //return
+                    //}
+                    //this.radioValue = (data.result && data.result.limit) || 10
+                    //this.skip = (data.result && data.result.skip) || 0
                     this.getReciteList()
                     this.showStatus = !arg
-                })
+                //})
             } else {
                 this.value = ""
                 this.docs = []
@@ -333,6 +344,7 @@ export default {
 
         window.addEventListener("keyup", e => {
             let kc = e.keyCode
+
             if (kc === 113) {
                 if (this.voice && this.voice.ph_en_mp3) {
                     refs.audio_en.play()
@@ -343,6 +355,8 @@ export default {
                 }
             } else if (kc == 39 || kc == 40) {
                 this.nextWord()
+            } else if (kc == 37 || kc == 38) {
+                this.prevWord()
             }
         })
 

@@ -74,6 +74,7 @@ export default {
     props: ["defaultTime", "calendarCallBack"],
     data() {
         return {
+            dateTitle: "",
             weeks: ["日", "一", "二", "三", "四", "五", "六"],
             d: [],
             d2: {},

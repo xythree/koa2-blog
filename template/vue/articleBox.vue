@@ -286,9 +286,9 @@
 
 <script>
 
-import xythree from "./../../static/js/xythree"
+import xythree from "js/xythree"
 //import paginationBox from "./../../vue_component/pagination/pagination.vue"
-
+ 
 export default {
     data() {
         return {
