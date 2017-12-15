@@ -29,11 +29,12 @@
 .float_right {
     float: right;
 }
+
 </style>
 
 
 <template>
-    <div class="usercenter_box">        
+    <div class="usercenter_box">
         <Menu mode="horizontal" ref="topMenu" :theme="theme1" @on-select="select" active-name="people">
             <MenuItem name="home">
             <Icon type="home"></Icon>
@@ -43,11 +44,10 @@
             <Icon type="ios-people"></Icon>
             用户中心
             </MenuItem>
-            <MenuItem name="logout" :class="{float_right: true}">
+            <MenuItem name="logout" :class="{float_right: true}" >
             <Icon type="log-out"></Icon>
             退出
             </MenuItem>
-
         </Menu>
 
         <Col span="4" :class="{leftMenu: true}">
@@ -57,6 +57,7 @@
                     <Icon type="ios-paper"></Icon>
                     内容管理
                 </template>
+                <MenuItem name="addArticle">添加文章</MenuItem>
                 <MenuItem name="article">文章管理</MenuItem>
                 <MenuItem name="comment">评论管理</MenuItem>
             </Submenu>
@@ -108,7 +109,7 @@ let routerActive = {
     music: "set"
 }
 
-export default {    
+export default {
     data() {
         return {
             show: false,
@@ -116,7 +117,7 @@ export default {
             openNames: [],
             theme1: "light",
             userinfo: {
-                level: 1
+                level: 9
             }
         }
     },
@@ -124,6 +125,12 @@ export default {
         select(name) {
             if (name == "home") {
                 location.href = "/"
+            } else if (name == "logout") {
+                this.$axios.get("/api/logout").then(d => {
+                    if (d.data.code == 200) {
+                        location.href = "/"
+                    }
+                })
             }
         }
     },

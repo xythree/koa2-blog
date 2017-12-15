@@ -2,6 +2,7 @@ import Vue from "vue"
 
 import app from "@vue/login_register/login.vue"
 
+import axios from "axios"
 
 /*
 import icon from "iview/src/components/icon"
@@ -22,6 +23,7 @@ import iview from "iview"
 
 import "iview/dist/styles/iview.css"
 
+Vue.prototype.$axios = axios
 
 Vue.use(iview)
 

@@ -1,12 +1,25 @@
+<style lang="scss">
+.ifrom {
+    position: fixed;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+    width: 500px;
+}
+
+
+</style>
+
 <template>
+<div class="ifrom">
     <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
         <FormItem prop="user">
-            <Input type="text" v-model="formInline.user" placeholder="Username">
+            <Input type="text" v-model="formInline.user" @on-keyup="focusFn" placeholder="Username">
                 <Icon type="ios-person-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
         <FormItem prop="password">
-            <Input type="password" v-model="formInline.password" placeholder="Password">
+            <Input type="password" v-model="formInline.password" @on-keyup="focusFn" placeholder="Password">
                 <Icon type="ios-locked-outline" slot="prepend"></Icon>
             </Input>
         </FormItem>
@@ -14,6 +27,7 @@
             <Button type="primary" @click="handleSubmit('formInline')">登录</Button>
         </FormItem>
     </Form>
+</div>
 </template>
 <script>
     export default {
@@ -36,13 +50,31 @@
         },
         methods: {
             handleSubmit(name) {
-                this.$refs[name].validate((valid) => {
-                    if (valid) {
-                        this.$Message.success("提交成功!");
-                    } else {
-                        this.$Message.error("表单验证失败!");
-                    }
-                })
+                let username = this.formInline.user
+                let password = this.formInline.password
+                
+                if (username && password) {
+                    this.$axios.get("/api/login",{
+                        params: {
+                            username,
+                            password
+                        }
+                    }).then(d => {
+                       if (d.data.code == 200) {
+                           location.href = "/usercenter/index"
+                       } else {
+                           this.$Message.error("表单验证失败!");
+                       }
+                    })
+                } else {
+                    this.$refs[name].validate()
+                }
+            },
+            focusFn(e) {
+                if (e.keyCode == 13) {
+                    this.handleSubmit("formInline")
+                }
+                
             }
         }
     }

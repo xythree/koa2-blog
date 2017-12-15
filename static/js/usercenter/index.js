@@ -20,16 +20,16 @@ Vue.use(VueRouter)
 let routes = [{
     path: "/word",
     component: r => {
-        require.ensure([], () => {
-            return r(require("@vue/usercenter/recite.vue"))
-        }, "usercenter_recite")
+        //require.ensure([], () => {
+        return r(require("@vue/usercenter/recite.vue"))
+            //}, "usercenter_recite")
     }
 }, {
     path: "/music",
     component: r => {
-        require.ensure([], () => {
-            return r(require("@vue/usercenter/music.vue"))
-        }, "usercenter_music")
+        //require.ensure([], () => {
+        return r(require("@vue/usercenter/music.vue"))
+            //}, "usercenter_music")
     }
 }]
 

@@ -4,7 +4,7 @@ let mon = require("../modules/model")
 module.exports = (router, render) => {
 
     router.use("/usercenter/*", async(ctx, next) => {
-        let username = ctx.session.username || "xythree"
+        let username = ctx.session.username
 
         if (username) {
             ctx.userinfo = await mon.Users.find({ username })
@@ -27,9 +27,9 @@ module.exports = (router, render) => {
 
     router.get("/api/usercenter/recite", async ctx => {
         let params = ctx.request.query
-        let username = ctx.session.username || "xythree"
+        let username = ctx.session.username
         let result = ""
-
+        console.log(username)
         if (params.limit) {
             result = await mon.recite.update({ username }, { $set: { limit: +params.limit } })
         } else {
@@ -44,7 +44,7 @@ module.exports = (router, render) => {
         let limit = params.limit || 15
         let skip = limit * (params.skip || 0)
         let result = {}
-        let username = ctx.session.username || "xythree"
+        let username = ctx.session.username
 
         switch (params.type) {
             case "delete":
