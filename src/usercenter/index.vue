@@ -3,6 +3,7 @@
 
     .leftMenu {
         float: left;
+        width: auto;
 
         &>.ivu-menu {
             min-height: 600px;
@@ -57,8 +58,12 @@
                     <Icon type="ios-paper"></Icon>
                     内容管理
                 </template>
-                <MenuItem name="addArticle">添加文章</MenuItem>
-                <MenuItem name="article">文章管理</MenuItem>
+                <MenuItem name="addArticle">
+                    <router-link to="/editor/new">添加文章</router-link>
+                </MenuItem>
+                <MenuItem name="articleList">
+                    <router-link to="/articleList">文章管理</router-link>
+                </MenuItem>
                 <MenuItem name="comment">评论管理</MenuItem>
             </Submenu>
 
@@ -76,10 +81,10 @@
                     设置
                 </template>
                 <MenuItem name="word">
-                <router-link to="/word">单词</router-link>
+                    <router-link to="/word">单词</router-link>
                 </MenuItem>
                 <MenuItem name="music">
-                <router-link to="/music">音乐</router-link>
+                    <router-link to="/music">音乐</router-link>
                 </MenuItem>
             </Submenu>
 
@@ -106,7 +111,9 @@
 
 let routerActive = {
     word: "set",
-    music: "set"
+    music: "set",
+    "editor/new": "admin",
+    articleList: "admin"
 }
 
 export default {
@@ -117,8 +124,9 @@ export default {
             openNames: [],
             theme1: "light",
             userinfo: {
-                level: 9
-            }
+                username: userinfo.username || "",
+                level: userinfo.level || 0
+            } 
         }
     },
     methods: {
@@ -136,7 +144,7 @@ export default {
     },
     watch: {
         $route(to, from) {
-            this.activeName = to.path.replace("/", "")
+            this.activeName = to.path.replace("/", "").replace(/editor\/(.*)/,"editor/new")
             this.openNames = [routerActive[this.activeName]]
             this.$nextTick(() => {
                 this.$refs.leftMenu.updateOpened()

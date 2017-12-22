@@ -7,7 +7,7 @@ import axios from "axios"
 import home from "@vue/home/homeBox.vue"
 
 import articleList from "template/vue/articleList.vue"
-import articleBox from "template/vue/articleBox.vue"
+//import articleBox from "template/vue/articleBox.vue"
 
 Vue.prototype.$axios = axios
 
@@ -18,7 +18,12 @@ let routes = [{
     component: articleList
 }, {
     path: "/article",
-    component: articleBox
+    //component: articleBox
+    component: r => {
+        require.ensure([], () => {
+            return r(require("template/vue/articleBox.vue"))
+        }, "articleBox")
+    }
 }]
 
 let router = new VueRouter({

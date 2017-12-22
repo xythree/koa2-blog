@@ -192,6 +192,7 @@
         background: #fff url(/images/load.gif) no-repeat center;
     }
 }
+
 @media screen and (max-width: 1000px) {
     
     .article_box {
@@ -202,6 +203,18 @@
     }
 
 }
+
+pre {    
+    border-radius:3px;
+    background-color:#333;
+    color:#f8f8f2;
+    overflow:visible;
+    white-space: pre-wrap;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    padding: 5px 10px;
+}
+
 </style>
 
 <template>
@@ -211,8 +224,8 @@
             <div class="iarticle">
                 <h3 class="iarticle_title">{{title}}</h3>
                 <div class="iarticle_time_views">
-                    <span class="iarticle_time" v-if="false">{{time | getLastTime}}</span>
-                    <span class="iarticle_views" v-if="false">{{views}}次浏览</span>
+                    <span class="iarticle_time">{{time | getLastTime}}</span>
+                    <span class="iarticle_views">{{views}}次浏览</span>
                 </div>
                 <div class="iarticle_content" v-html="content"></div>
                 <div class="isource_box" v-if="false">
@@ -288,7 +301,8 @@
 
 import xythree from "js/xythree"
 //import paginationBox from "./../../vue_component/pagination/pagination.vue"
- 
+
+
 export default {
     data() {
         return {

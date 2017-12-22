@@ -27,7 +27,7 @@ app.use(async(ctx, next) => {
     await next()
 })
 
-const minify = require('html-minifier').minify
+const minify = require("html-minifier").minify
 
 app.use(async(ctx, next) => {
 

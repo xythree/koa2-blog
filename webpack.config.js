@@ -2,14 +2,14 @@ const webpack = require("webpack")
 const path = require("path")
     //const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
-const UglifyJSPlugin = require("uglifyjs-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 const CompressionPlugin = require("compression-webpack-plugin") //Gzip 压缩
 
 let production = (process.env.NODE_ENV == "production")
 
 module.exports = {
     entry: {
-        vendor: ["vue", "axios"],
+        //vendor: ["vue", "axios"],
         //home: "./static/js/home.js",
         //music: "./static/js/music/index.js",
         //component: "./static/js/component/index.js",
@@ -18,7 +18,7 @@ module.exports = {
         //tools: "./static/js/tools/index.js",
         //markdown: "./static/js/tools/markdown.js",
         //qrcode: "./static/js/tools/qrcode.js",
-        //index: "./static/js/index.js",
+        index: "./static/js/index.js",
         usercenter: "./static/js/usercenter/index.js",
         login: "./static/js/login.js"
     },
@@ -31,6 +31,7 @@ module.exports = {
     },
     //devtool: "source-map",
     plugins: [
+
         new CompressionPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
@@ -42,7 +43,7 @@ module.exports = {
             compress: {
                 warnings: !production,
                 drop_console: false,
-                //pure_funcs: ["console.log"]
+                pure_funcs: ["console.log"]
             },
             sourceMap: !production
         }),

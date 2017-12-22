@@ -23,15 +23,15 @@
 export default {
     data() {
         return {
-            animal: 0
+            animal: 10
         }
     },
     created() {		
         this.$axios.get("/api/usercenter/recite").then(d => {
-            this.animal = d.data[0].limit
+            this.animal = d.data[0].limit || 10
 
             this.$watch("animal", v => {
-                this.$axios.get("/api/usercenter/recite?limit=" + v).then(d => {					
+                this.$axios.get("/api/usercenter/recite?limit=" + v).then(d => {
                     if (d.data.ok != 1) {
                         this.$Message.error({
                             content: "设置失败",
