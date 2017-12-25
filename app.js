@@ -9,6 +9,8 @@ const path = require("path")
 
 const server = require("http").createServer(app.callback())
 
+const io = require("socket.io")(server)
+
 const config = require("./config")
 
 const render = views("./views", {
@@ -75,7 +77,7 @@ app.use(router.routes())
 
 
 
-require("./routes/index")(router, render)
+require("./routes/index")(router, render, io)
 
 router.get("/404", async ctx => {
     ctx.body = await render("404")

@@ -139,6 +139,8 @@ export default {
                         location.href = "/"
                     }
                 })
+            } else if (name == "robot") {
+                window.open("/robot")
             }
         }
     },

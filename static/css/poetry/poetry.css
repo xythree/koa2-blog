@@ -1,20 +1,100 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-ul,
-ol,
-li {
-  list-style: none;
-}
-
 body {
   background: #fcf8ee;
 }
 
+@-webkit-keyframes ani_music {
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  0%,
+  100% {
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
+  }
+}
+
+@keyframes ani_music {
+  50% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  0%,
+  100% {
+    -webkit-transform: translateY(5px);
+    transform: translateY(5px);
+  }
+}
+
 .poetry-box {
   overflow: hidden;
+}
+
+.poetry-box .music {
+  position: fixed;
+  top: 10px;
+  left: 310px;
+  width: 15px;
+  height: 30px;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.poetry-box .music span {
+  position: absolute;
+  bottom: 0;
+  width: 2px;
+  background: #333;
+}
+
+.poetry-box .music span:nth-child(1) {
+  left: 0;
+  height: 30%;
+}
+
+.poetry-box .music span:nth-child(2) {
+  left: 3px;
+  height: 50%;
+}
+
+.poetry-box .music span:nth-child(3) {
+  left: 6px;
+  height: 35%;
+}
+
+.poetry-box .music span:nth-child(4) {
+  left: 9px;
+  height: 55%;
+}
+
+.poetry-box .music span:nth-child(5) {
+  left: 12px;
+  height: 40%;
+}
+
+.poetry-box .music.music_stop span:nth-child(1) {
+  -webkit-animation: ani_music 1s ease-out infinite both;
+  animation: ani_music 1s ease-out infinite both;
+}
+
+.poetry-box .music.music_stop span:nth-child(2) {
+  -webkit-animation: ani_music .5s ease-out infinite both;
+  animation: ani_music .5s ease-out infinite both;
+}
+
+.poetry-box .music.music_stop span:nth-child(3) {
+  -webkit-animation: ani_music 1s .5s ease-out infinite both;
+  animation: ani_music 1s .5s ease-out infinite both;
+}
+
+.poetry-box .music.music_stop span:nth-child(4) {
+  -webkit-animation: ani_music .8s .25s ease-out infinite both;
+  animation: ani_music .8s .25s ease-out infinite both;
+}
+
+.poetry-box .music.music_stop span:nth-child(5) {
+  -webkit-animation: ani_music 1s .25s ease-out infinite both;
+  animation: ani_music 1s .25s ease-out infinite both;
 }
 
 .poetry-box .poetry-list-box {
@@ -47,6 +127,7 @@ body {
 }
 
 .poetry-box .poetry-list-box .poetry-search-box input:focus {
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
 }
 
@@ -175,6 +256,12 @@ body {
 }
 
 @media screen and (max-width: 1000px) {
+  .poetry-box .music {
+    left: auto;
+    top: 5px;
+    right: 10px;
+    z-index: 9;
+  }
   .poetry-box .poetry-list-box {
     padding-top: 51px;
     left: -300px;

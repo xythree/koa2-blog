@@ -10,14 +10,15 @@ let production = (process.env.NODE_ENV == "production")
 module.exports = {
     entry: {
         //vendor: ["vue", "axios"],
-        //home: "./static/js/home.js",
+        home: "./static/js/home.js",
         //music: "./static/js/music/index.js",
         //component: "./static/js/component/index.js",
         //word: "./static/js/word/index.js",
-        //poetry: "./static/js/poetry/index.js",
-        //tools: "./static/js/tools/index.js",
+        poetry: "./static/js/poetry/index.js",
+        tools: "./static/js/tools/index.js",
         //markdown: "./static/js/tools/markdown.js",
         //qrcode: "./static/js/tools/qrcode.js",
+        robot: "./static/js/chat/robot.js",
         index: "./static/js/index.js",
         usercenter: "./static/js/usercenter/index.js",
         login: "./static/js/login.js"
@@ -25,7 +26,7 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, "static/dist/js"),
         filename: "[name].js",
-        //publicPath: "http://www.xythree.com/",
+        //publicPath: "https://www.xythree.com/",
         //filename: "[name].[chunkhash:8].js",
         chunkFilename: "../../dist/js/[name].min.js"
     },

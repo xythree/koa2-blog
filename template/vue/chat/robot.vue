@@ -1,4 +1,4 @@
-<style lang="sass">
+<style lang="scss">
 
 *{margin:0;padding:0;}
 
@@ -34,19 +34,16 @@ ul,ol,li {
 }
 .irobot {
     margin: 50px auto;
-    width: 800px;
-    overflow: hidden;
+    width: 768px;
 
     .irobot_chat {
         float: left;
-        width: 500px;
+        width: 490px;
         height: 600px;
 
         .irobot_chat_box {
             width: 100%;
-            height: 535px;
-            border-bottom: 1px solid $c2;
-            margin-bottom: 15px;
+            height: 535px;            
             overflow: auto;
         }
         
@@ -55,12 +52,16 @@ ul,ol,li {
     }
 
     .isay_box {
+        display: flex;
+        padding-top: 15px;
         height: 50px;
-
+        border-top: 1px solid $c2;
+        border-bottom: 1px solid $c2;
+        background: #fff;
         input {
-            display: inline-block;
-            vertical-align: middle;
+            flex: 1;
             margin-left: 10px;
+            margin-right: 10px;
             width: 360px;
             height: 20px;
             line-height: 20px;
@@ -70,12 +71,10 @@ ul,ol,li {
             outline: none;
         }
         .isend_btn {
-            display: inline-block;
-            vertical-align: middle;
             width: 100px;
-            height: 30px;
-            line-height: 30px;
-            margin-left: 2px;
+            height: 32px;
+            line-height: 32px;            
+            margin-right: 10px;
             text-align: center;
             cursor: pointer;
             background: $c4;
@@ -176,8 +175,11 @@ ul,ol,li {
     }
 }
 
+.showReserve {
+    display: none;
+}
 .ireserve {
-    float: left;
+    float: right;
     padding: 10px;
     font-size: 12px;
     width: 250px;
@@ -200,14 +202,89 @@ ul,ol,li {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .robot {
+        max-width: 768px;
+        overflow: hidden;
+
+        .irobot {
+            margin: auto;
+            width: 100%;
+
+            .irobot_chat {
+                float: none;
+                width: 100%;
+                height: 100%;
+                border-bottom: none;
+
+                .irobot_chat_box {
+                    height: auto;
+                    margin-bottom: 66px;
+                }
+
+                .isay_box {
+                    position: fixed;
+                    width: 100%;
+                    left: 0;
+                    bottom: 0;
+                }
+            }
+            .showReserve {
+                display: block;
+                position: fixed;
+                right: 10px;
+                bottom: 71px;
+                width: 29px;
+                height: 29px;
+                background: url(/images/chat/experience.png) no-repeat 0 -568px;
+                z-index: 11;
+            }
+            .ireserve {
+                display: none;
+                float: none;
+                position: fixed;
+                left: 0;
+                bottom: 66px;
+                width: 100%;
+                background: #fff;
+                z-index: 9;
+                overflow: hidden;
+                li {
+                    float: left;
+                    margin: 5px;
+                }
+            }
+            .reserveStatus {
+                display: block;
+                animation: ani_reserveStatus 1s ease-out both;
+            }
+        }
+    }
+}
+@keyframes ani_reserveStatus {
+    0% {
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
 </style>
 
 <template>
-    <div>
+    <div class="robot">
         <div class="ilink_box">
             <a href="/">首页</a>
+            <a href="/tools">工具</a>
         </div>
         <div class="irobot">
+            <div class="showReserve" @click="showReserve"></div>
+            <ul class="ireserve" :class="{reserveStatus: reserveStatus}" >
+                <li v-for="item in reserve">
+                    <a @click="reserveFn(item)">{{item}}</a>
+                </li>
+            </ul>
     
             <div class="irobot_chat">
     
@@ -239,13 +316,8 @@ ul,ol,li {
                     <input class="isay_ipt" placeholder="to say something..." @keyup.enter="say" type="text" v-model="value" />
                     <a class="isend_btn" @click="say">发送</a>
                 </div>
-            </div>
-    
-            <ul class="ireserve">
-                <li v-for="item in reserve">
-                    <a @click="reserveFn(item)">{{item}}</a>
-                </li>
-            </ul>
+            </div>   
+            
     
         </div>
     </div>
@@ -260,6 +332,7 @@ export default {
         let temp =  ["你好，最近过得怎么样？", "嗨，最近想我没有？[羞涩]", "嗨，有什么想对我聊聊么？", "你好呀，想我了吗？", "跟我聊聊吧，你可以问我姚明多高？", "做什么呢？对我说讲笑话，我就会逗你开心哦"]
 
         return {
+            reserveStatus: false,
             username: Math.random().toFixed(6).substr(2),
             value: "",
             records: [{
@@ -270,6 +343,9 @@ export default {
         }
     },
     methods: {
+        showReserve() {
+            this.reserveStatus = !this.reserveStatus
+        },
         setScroll() {
             this.$nextTick(() => {
                 let refs = this.$refs
@@ -277,6 +353,7 @@ export default {
             })
         },
         reserveFn(v) {
+            this.reserveStatus = false
             this.value = v
             this.say()
         },

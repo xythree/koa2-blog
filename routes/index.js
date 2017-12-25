@@ -1,5 +1,4 @@
-module.exports = (router, render) => {
-
+module.exports = (router, render, io) => {
 
     require("./home")(router, render)
 
@@ -14,6 +13,8 @@ module.exports = (router, render) => {
     require("../modules/download")(router, render)
 
     require("./upload")(router, render)
+
+    require("./chat")(router, render, io)
 
     require("./usercenter")(router, render)
 

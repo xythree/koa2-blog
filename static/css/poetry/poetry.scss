@@ -1,20 +1,90 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
-ul,
-ol,
-li {
-    list-style: none;
-}
-
 body {
     background: #fcf8ee;
 }
 
+@-webkit-keyframes ani_music {
+    50% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    0%,
+    100% {
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+    }
+}
+
+@keyframes ani_music {
+    50% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    0%,
+    100% {
+        -webkit-transform: translateY(5px);
+        transform: translateY(5px);
+    }
+}
+
 .poetry-box {
     overflow: hidden;
+    .music {
+        position: fixed;
+        top: 10px;
+        left: 310px;
+        width: 15px;
+        height: 30px;
+        overflow: hidden;
+        cursor: pointer;
+        span {
+            position: absolute;
+            bottom: 0;
+            width: 2px;
+            background: #333;
+            &:nth-child(1) {
+                left: 0;
+                height: 30%;
+            }
+            &:nth-child(2) {
+                left: 3px;
+                height: 50%;
+            }
+            &:nth-child(3) {
+                left: 6px;
+                height: 35%;
+            }
+            &:nth-child(4) {
+                left: 9px;
+                height: 55%;
+            }
+            &:nth-child(5) {
+                left: 12px;
+                height: 40%;
+            }
+        }
+        &.music_stop span {
+            &:nth-child(1) {
+                -webkit-animation: ani_music 1s ease-out infinite both;
+                animation: ani_music 1s ease-out infinite both;
+            }
+            &:nth-child(2) {
+                -webkit-animation: ani_music .5s ease-out infinite both;
+                animation: ani_music .5s ease-out infinite both;
+            }
+            &:nth-child(3) {
+                -webkit-animation: ani_music 1s .5s ease-out infinite both;
+                animation: ani_music 1s .5s ease-out infinite both;
+            }
+            &:nth-child(4) {
+                -webkit-animation: ani_music .8s .25s ease-out infinite both;
+                animation: ani_music .8s .25s ease-out infinite both;
+            }
+            &:nth-child(5) {
+                -webkit-animation: ani_music 1s .25s ease-out infinite both;
+                animation: ani_music 1s .25s ease-out infinite both;
+            }
+        }
+    }
     .poetry-list-box {
         position: fixed;
         top: 0;
@@ -39,6 +109,7 @@ body {
                 border-radius: 3px;
                 text-indent: 5px;
                 &:focus {
+                    -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, .25);
                     box-shadow: 0 0 5px rgba(0, 0, 0, .25);
                 }
             }
@@ -160,6 +231,12 @@ body {
 @media screen and (max-width: 1000px) {
     $v: 300px;
     .poetry-box {
+        .music {
+            left: auto;
+            top: 5px;
+            right: 10px;
+            z-index: 9;
+        }
         .poetry-list-box {
             padding-top: 51px;
             left: -$v;

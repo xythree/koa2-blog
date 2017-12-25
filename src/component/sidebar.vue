@@ -94,6 +94,7 @@ a {
     height: 300px;
     background: url(/images/long_white.png) no-repeat center;
     opacity: .05;
+    z-index: -1;
 }
 @media screen and (max-width: 768px) {
     .sidebar{

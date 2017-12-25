@@ -37,7 +37,6 @@
     .iarticle_content {
         min-height: 350px;
         pre {
-            width: 100%;
             overflow: auto;
         }
     }

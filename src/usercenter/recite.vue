@@ -26,7 +26,7 @@ export default {
             animal: 10
         }
     },
-    created() {		
+    created() {
         this.$axios.get("/api/usercenter/recite").then(d => {
             this.animal = d.data[0].limit || 10
 

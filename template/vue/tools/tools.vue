@@ -26,6 +26,7 @@
             <li><a href="/">首页</a></li>
             <li><a href="/qrcode">二维码</a></li>
             <li><a href="/md">markdown编辑器</a></li>
+            <li><a href="/robot">瞎扯</a></li>
         </ul>
     </div>
 </template>

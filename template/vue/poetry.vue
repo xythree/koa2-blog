@@ -1,5 +1,13 @@
 <template>
     <div class="poetry-box" :class="{'showMenu': showMenu}">
+        <div class="music" :class="{music_stop: musicStop}" @click="musicStatus">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <audio style="display:none;" src="/media/music/renlairenwang.mp3" ref="audio" preload="auto" autoplay="autoplay" loop="loop"></audio>
+        </div>
         <div class="poetry-list-box" :style="poetryListStyle">
             <div class="poetry-search-box">
                 <input type="text" placeholder="名称/作者" v-model="search.val" @keyup="searchFn" />
@@ -62,6 +70,7 @@ import { cookie } from "./../../static/js/cookie"
 export default {
     data() {
         return {
+            musicStop: false,
             loadingBoxShow: true,
             search: {
                 timer: "",
@@ -87,6 +96,17 @@ export default {
         }
     },
     methods: {
+        musicStatus() {
+            let audio = this.$refs.audio
+
+            if (this.musicStop) {
+                this.musicStop = false
+                audio.pause()
+            } else {
+                this.musicStop = true
+                audio.play()
+            }
+        },
         menuFn(time) {
             setTimeout(() => {
                 this.showMenu = !this.showMenu
@@ -126,6 +146,10 @@ export default {
                 this.details.explain = data[1].replace(/\r\n/g, "<br />")
                 this.poertyInfoShow = true
             }, 300)
+        },
+        playAudio() {
+            this.musicStop = true
+            this.$refs.audio.play()
         }
     },
     mounted() {
@@ -166,6 +190,16 @@ export default {
                 this.showInfo(this.choice)
             })
         })
+
+        document.body.addEventListener("touchstart", () => {
+            this.playAudio()
+            document.body.removeEventListener("touchstart", this.playAudio)
+        }, false)
+
+        if (window.innerWidth > 768) {
+            this.playAudio()
+        }
+        
     }
 }
 </script>
