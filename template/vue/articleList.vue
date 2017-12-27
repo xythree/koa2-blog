@@ -210,6 +210,7 @@
 import pagination_box from "vue_component/pagination/pagination.vue"
 
 export default {
+    name: "articleList",
     data() {
         return {
             articleList: [],

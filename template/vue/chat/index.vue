@@ -1,4 +1,4 @@
-<style lang="sass" >
+<style lang="scss" >
 *{margin:0;padding:0;}
 
 $c1: #eee;
@@ -75,9 +75,6 @@ $c4: #efefef;
             <iframe v-show="src" :src="src" width="100%" height="100%" frameborder="0"></iframe>
         </div>
     
-        <drag_box :show="dragBoxShow" :dragCallBack="dragCallBack">
-            <login_register :loginRegisterCallBack="loginRegisterCallBack" />
-        </drag_box>
     </div>
 </template>
 
@@ -86,7 +83,7 @@ $c4: #efefef;
 
 import axios from "axios"
 import drag_box from "vue_component/drag_box/drag_box.vue"
-import login_register from "./../login_register.vue"
+
 import io from "socket.io-client"
 
 const socket = io()
@@ -102,8 +99,7 @@ export default {
         }
     },
     components: {
-        drag_box,
-        login_register
+        
     },
     methods: {
         getRoomId() {
@@ -114,18 +110,10 @@ export default {
             }
             return id
         },
-        loginRegisterCallBack(data) {
-            this.isLogin = true
-            this.dragBoxShow = false
-        },
         dragCallBack() {
             this.dragBoxShow = false
         },
         joinRoom(id) {
-            if (!this.isLogin) {
-                this.dragBoxShow = true
-                return
-            }
             let _id = id || this.getRoomId()
 
             //window.open("/chatroom/" + _id)
@@ -138,11 +126,7 @@ export default {
         }
     },
     created() {
-        axios.get("/isLogin").then(data => {
-            if (data.data.length) {
-                this.isLogin = true
-            }
-        })
+
     },
     mounted() {
 
@@ -158,13 +142,7 @@ export default {
         })
         */
         
-        axios.post("/lru", {
-            a: 1,
-            cache: true
-        }).then(data => {
-            console.log({a:1})
-            console.log(data.data)
-        })
+
     }
 }
 </script>

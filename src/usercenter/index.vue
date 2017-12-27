@@ -141,6 +141,8 @@ export default {
                 })
             } else if (name == "robot") {
                 window.open("/robot")
+            } else if (name == "chat") {
+                window.open("/chatroom/html")
             }
         }
     },

@@ -14,13 +14,15 @@ module.exports = {
         //music: "./static/js/music/index.js",
         //component: "./static/js/component/index.js",
         //word: "./static/js/word/index.js",
-        poetry: "./static/js/poetry/index.js",
+        //poetry: "./static/js/poetry/index.js",
         tools: "./static/js/tools/index.js",
         //markdown: "./static/js/tools/markdown.js",
         //qrcode: "./static/js/tools/qrcode.js",
         robot: "./static/js/chat/robot.js",
-        index: "./static/js/index.js",
-        usercenter: "./static/js/usercenter/index.js",
+        chat: "./static/js/chat/index.js",
+        chatroom: "./static/js/chat/chatroom.js",
+        //index: "./static/js/index.js",
+        //usercenter: "./static/js/usercenter/index.js",
         login: "./static/js/login.js"
     },
     output: {
@@ -40,6 +42,7 @@ module.exports = {
             threshold: 10240,
             minRatio: 0.8
         }),
+        /*
         new webpack.optimize.UglifyJsPlugin({
             compress: {
                 warnings: !production,
@@ -48,6 +51,7 @@ module.exports = {
             },
             sourceMap: !production
         }),
+        */
         /*
             //自动加载模块
             new webpack.ProvidePlugin({
