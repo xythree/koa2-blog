@@ -5,6 +5,7 @@ module.exports = (router, render, io) => {
     let records = []
     let _ip = ""
     let rooms = {}
+    let maxChatRecordNum = 99
 
     io.on("connection", async socket => {
         let roomId = socket.request.headers.referer.split("/").pop()
@@ -54,20 +55,28 @@ module.exports = (router, render, io) => {
                 })
 
                 io.to(roomId).emit("join", records[roomId], rooms[roomId])
+                io.to(roomId).emit("message", records[roomId])
                 console.log(`${user}加入了房间${roomId}`)
             }
         })
 
         _s.on("message", data => {
             if (rooms[roomId].indexOf(user) === -1) return
-
-            records[roomId].push({
+            let mes = {
+                ip: _ip,
                 username: data.username,
                 value: data.value,
+                avatar: data.avatar,
                 time: Date.now()
-            })
+            }
 
-            io.to(roomId).emit("message", records[roomId])
+            records[roomId].push(mes)
+
+            if (records[roomId].length > maxChatRecordNum) {
+                records[roomId].splice(0, records[roomId].length - maxChatRecordNum)
+            }
+
+            io.to(roomId).emit("message", mes)
         })
 
         _s.on("disconnect", () => {
@@ -96,17 +105,18 @@ module.exports = (router, render, io) => {
                 }
             }
         })
-
     })
 
     router.get("/chatroom/:id", async ctx => {
         _ip = ip(ctx)
-
-        ctx.body = await render("chat/chatroom")
+        ctx.body = await render("chat/chatroom", {
+            info: {
+                ip: _ip
+            }
+        })
     })
 
     router.get("/chat/roomlist", async ctx => {
-
         ctx.body = await rooms
     })
 
@@ -118,8 +128,6 @@ module.exports = (router, render, io) => {
     */
 
     router.get("/chat", async ctx => {
-
-
         ctx.body = await render("chat/index")
     })
 
