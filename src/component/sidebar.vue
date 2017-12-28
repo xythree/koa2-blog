@@ -178,7 +178,7 @@ a {
         <div class="content" :class="{'showMenu': showMenu}" >
             
             <div class="listBox">
-                <keep-alive>
+                <keep-alive> 
                     <router-view></router-view>
                 </keep-alive>
             </div>
