@@ -35,7 +35,7 @@ module.exports = {
         async find(obj, skip = 0, limit = 15) {
             let data = ""
 
-            data = await sql.Article.find(obj).limit(limit).skip(skip * limit)
+            data = await sql.Article.find(obj, { title: 1, content: 1 }).limit(limit).skip(skip * limit)
 
             return _unescape(data)
         },
@@ -88,16 +88,16 @@ module.exports = {
 
             return _unescape(data)
         },
-        async findTitle(title, condition = { title: 1, content: 1 }, skip = 0, limit = 15) {
+        async findTitle(title, skip = 0, limit = 15) {
             let data = ""
             let obj = title ? {
                 title: {
-                    $regex: title,
+                    $regex: validator.escape(title),
                     $options: "i"
                 }
             } : {}
 
-            data = await sql.Article.aggregate().sort({ _id: -1 }).skip(skip * limit).limit(+limit).match(obj).project(condition)
+            data = await sql.Article.find(obj, { title: 1, content: 1 }).sort({ _id: -1 }).skip(skip * limit).limit(+limit)
 
             return _unescape(data)
         },

@@ -35,11 +35,8 @@
 
 <script>
 
-import qrcode_box from "./qrcode.vue"
-
 export default {
-    components: {
-        
-    }
+
 }
+
 </script>

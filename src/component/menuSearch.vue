@@ -124,7 +124,7 @@ export default {
             this.showMenuCallBack()
         },
         search() {
-
+            this.showMenuCallBack("search", this.searchVal)
         }
     }
 }

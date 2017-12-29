@@ -182,7 +182,7 @@ a {
                     <router-view></router-view>
                 </keep-alive>
             </div>
-            
+
             <div class="icopy">
                 <p>Copyright © 2017-2020 All Rights Reserved!</p>
                 <p>Powered by koa2 & xythree</p>
@@ -223,7 +223,11 @@ export default {
         backtop
     },
     methods: {
-        showMenuCallBack() {
+        showMenuCallBack(arg, v) {
+            if (arg == "search") {
+                this.$router.push("/?search=" + v)
+                return
+            }
             this.showMenu = !this.showMenu
         }
     },

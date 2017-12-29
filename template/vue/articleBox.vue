@@ -332,11 +332,11 @@ export default {
         //paginationBox
     },
     watch: {
-        "$route": "fetchData"
+        $route: "fetchData"
     },
     methods: {
         close() {
-            this.$router.push("/")
+            this.$router.go(-1)
         },
         paginationCallBack(ind) {
             this.index = ind

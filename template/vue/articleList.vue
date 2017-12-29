@@ -201,7 +201,7 @@
                 </li>
             </template>
         </ul>
-        <pagination_box :total="total" :paginationCallBack="paginationCallBack"></pagination_box>
+        <pagination_box :total="total" :paginationCallBack="paginationCallBack" ></pagination_box>
     </div>
 </template>
 
@@ -214,6 +214,7 @@ export default {
     data() {
         return {
             articleList: [],
+            skip: 0,
             total: 0
         }
     },
@@ -238,11 +239,11 @@ export default {
         paginationCallBack(ind) {
             (document.documentElement || document.body).scrollTop = 0
 
-            this.skip = ind - 1
+            this.skip = typeof ind == "object" ? 0 : ind - 1
 
             this.$axios.get("/article", {
                 params: {
-                    type: "list",
+                    search: this.$route.query.search || "",
                     skip: this.skip
                 }
             }).then(data => {
@@ -252,6 +253,9 @@ export default {
                 this.total = d.count
             })
         }
+    },
+    watch: {
+        $route: "paginationCallBack"
     }
 }
 </script>

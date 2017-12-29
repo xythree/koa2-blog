@@ -72,9 +72,7 @@
                 </div>
             </div>
             <div class="irouter_view">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
+                <router-view></router-view>
             </div>
         </div>
         <repload></repload>
@@ -85,7 +83,7 @@
 <script>
 
 import axios from "axios"
-import repload from "./../../vue_component/repload/repload.vue"
+import repload from "vue_component/repload/repload.vue"
 import backTop from "./backTop.vue"
 
 export default {

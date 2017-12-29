@@ -2,11 +2,9 @@ const sql = require("../modules/sql")
 
 module.exports = (router, render) => {
 
-
     router.get("/", async ctx => {
 
         ctx.body = await render("home/home")
-
     })
 
     router.get("/article", async ctx => {
@@ -30,9 +28,9 @@ module.exports = (router, render) => {
             result.prev = await sql.article.prev(params.id)
             result.next = await sql.article.next(params.id)
 
-        } else if (params.txt) {
+        } else if (params.search) {
 
-            result.data = await sql.article.findTitle(params.txt, +skip, +limit)
+            result.data = await sql.article.findTitle(params.search, +skip, +limit)
 
         } else if (skip != void 0) {
 
@@ -43,6 +41,5 @@ module.exports = (router, render) => {
 
         ctx.body = await result
     })
-
 
 }
