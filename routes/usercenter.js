@@ -7,7 +7,9 @@ module.exports = (router, render) => {
         let username = ctx.session.username
 
         if (username) {
-            ctx.userinfo = await mon.Users.find({ username })
+            let userinfo = await mon.Users.find({ username })
+
+            ctx.session.userinfo = userinfo[0]
             await next()
         } else {
             ctx.redirect("/login")
@@ -17,8 +19,8 @@ module.exports = (router, render) => {
     router.get("/usercenter/index", async ctx => {
         let html = await render("usercenter/index", {
             userinfo: {
-                username: ctx.userinfo[0].username,
-                level: ctx.userinfo[0].level
+                username: ctx.session.userinfo.username,
+                level: ctx.session.userinfo.level
             }
         })
 
@@ -178,4 +180,64 @@ module.exports = (router, render) => {
         ctx.body = await result
     })
 
+
+    router.get("/article/tags/list", async ctx => {
+        let result = {}
+
+        result.data = await mon.Tags.find({}, { name: 1, num: 1 })
+
+        ctx.body = await result
+    })
+
+    router.post("/article/tags/add", async ctx => {
+        let params = ctx.request.body
+        let result = { code: 500, data: [] }
+
+        if (ctx.session.userinfo.level != 9) {
+            result.message = "权限不足"
+        } else {
+            if (params.tags) {
+                let data = await mon.Tags.find({ name: params.tags })
+
+                if (data.length) {
+                    result.message = "标签已存在"
+                } else {
+                    result.data = await mon.Tags.create({
+                        name: params.tags
+                    })
+                    result.code = 200
+                    result.message = "添加成功"
+                }
+            } else {
+                result.message = "请输入标签名"
+            }
+        }
+
+        ctx.body = await result
+    })
+
+    router.post("/article/tags/remove", async ctx => {
+        let params = ctx.request.body
+        let result = { code: 500, data: [] }
+
+        if (ctx.session.userinfo.level != 9) {
+            result.message = "权限不足"
+        } else {
+            if (params.id) {
+                let data = await mon.Tags.remove({ _id: params.id })
+
+                if (data.result.ok == 1) {
+                    result.code = 200
+                    result.message = "删除成功"
+                    result.data = data
+                } else {
+                    result.message = "删除失败"
+                }
+            } else {
+                result.message = "请输入标签名"
+            }
+        }
+
+        ctx.body = await result
+    })
 }

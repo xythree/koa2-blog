@@ -44,6 +44,13 @@ let routes = [{
             return r(require("@vue/usercenter/articleList.vue"))
         }, "usercenter_articleList")
     }
+}, {
+    path: "/tags",
+    component: r => {
+        require.ensure([], () => {
+            return r(require("@vue/usercenter/tags.vue"))
+        }, "usercenter_tags")
+    }
 }]
 
 

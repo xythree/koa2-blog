@@ -200,6 +200,7 @@ import menuSearch from "@vue/component/menuSearch.vue"
 import repload from "vue_component/repload/repload.vue"
 import backtop from "template/vue/backTop.vue"
 
+
 export default {
     data() {
         return {

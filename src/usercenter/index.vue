@@ -65,6 +65,9 @@
                     <router-link to="/articleList">文章管理</router-link>
                 </MenuItem>
                 <MenuItem name="comment">评论管理</MenuItem>
+                <MenuItem name="tags">
+                    <router-link to="/tags">标签管理</router-link>
+                </MenuItem>
             </Submenu>
 
             <Submenu name="user" v-if="userinfo.level == 9">
@@ -113,7 +116,8 @@ let routerActive = {
     word: "set",
     music: "set",
     "editor/new": "admin",
-    articleList: "admin"
+    articleList: "admin",
+    tags: "admin"
 }
 
 export default {

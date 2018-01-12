@@ -15,14 +15,14 @@ module.exports = {
         //component: "./static/js/component/index.js",
         //word: "./static/js/word/index.js",
         //poetry: "./static/js/poetry/index.js",
-        tools: "./static/js/tools/index.js",
+        //tools: "./static/js/tools/index.js",
         //markdown: "./static/js/tools/markdown.js",
         //qrcode: "./static/js/tools/qrcode.js",
-        robot: "./static/js/chat/robot.js",
-        chat: "./static/js/chat/index.js",
-        chatroom: "./static/js/chat/chatroom.js",
+        //robot: "./static/js/chat/robot.js",
+        //chat: "./static/js/chat/index.js",
+        //chatroom: "./static/js/chat/chatroom.js",
         //index: "./static/js/index.js",
-        //usercenter: "./static/js/usercenter/index.js",
+        usercenter: "./static/js/usercenter/index.js",
         login: "./static/js/login.js"
     },
     output: {
@@ -34,7 +34,6 @@ module.exports = {
     },
     //devtool: "source-map",
     plugins: [
-
         new CompressionPlugin({
             asset: "[path].gz[query]",
             algorithm: "gzip",
@@ -85,6 +84,7 @@ module.exports = {
                     loader: "vue-loader",
                     // exclude: /node_modules\/(?!(autotrack|dom-utils))|vendor\.dll\.js/,
                     options: {
+                        //extractCSS: true,
                         postcss: function() {
                             return [require("autoprefixer")({ browsers: ["last 5 versions"] })];
                         },
@@ -107,11 +107,12 @@ module.exports = {
                 test: /\.(css|scss)$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
-                    use: ["css-loader?minimize", "sass-loader?minimize", "postcss-loader"]
+                    use: ["css-loader?minimize", "sass-loader?minimize", "postcss-loader?minimize"]
                 })
             },
             {
                 test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
+                //loader: "url-loader?limit=1024&name=https://www.xythree.com/[name].[ext]"
                 loader: "url-loader?limit=1024"
             },
             {
@@ -131,6 +132,7 @@ module.exports = {
             "@vue": path.resolve(__dirname, "src"),
             js: path.resolve(__dirname, "static/js"),
             css: path.resolve(__dirname, "static/css"),
+            images: path.resolve(__dirname, "static/images"),
             vue_component: path.resolve(__dirname, "vue_component"),
             template: path.resolve(__dirname, "template")
         }

@@ -17,6 +17,7 @@ const render = views("./views", {
     ext: "ejs"
 })
 
+
 app.use(require("./modules/request")())
 
 app.use(async(ctx, next) => {

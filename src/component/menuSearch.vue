@@ -102,7 +102,7 @@
                 <i class="fa fa-search"></i>
             </div>
             <div class="search_input">
-                <input type="text" @keyup.enter="search" v-model="searchVal" />
+                <input type="text" @focus="focusFn" @keyup.enter="search" v-model="searchVal" />
             </div>
         </div>
   </div>
@@ -122,6 +122,9 @@ export default {
     methods: {
         menuFn() {
             this.showMenuCallBack()
+        },
+        focusFn() {
+            this.searchVal = ""
         },
         search() {
             this.showMenuCallBack("search", this.searchVal)
