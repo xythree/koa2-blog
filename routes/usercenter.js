@@ -85,9 +85,9 @@ module.exports = (router, render) => {
             params.content = validator.escape(params.content)
 
             if (!params.id) {
-
                 result.code = 200
                 result.result = await mon.Article.create({
+                    tags: params.tags,
                     author: author,
                     title: params.title,
                     content: params.content,
@@ -99,11 +99,30 @@ module.exports = (router, render) => {
                 })
 
             } else {
+                params.plus.split(",").forEach(async t => {
+                    await mon.Tags.update({
+                        name: t
+                    }, {
+                        $inc: {
+                            num: 1
+                        }
+                    })
+                })
+                params.minus.split(",").forEach(async t => {
+                    await mon.Tags.update({
+                        name: t
+                    }, {
+                        $inc: {
+                            num: -1
+                        }
+                    })
+                })
                 result.code = 200
                 result.result = await mon.Article.update({
                     _id: params.id
                 }, {
                     $set: {
+                        tags: params.tags,
                         title: params.title,
                         content: params.content,
                         md: params.md,

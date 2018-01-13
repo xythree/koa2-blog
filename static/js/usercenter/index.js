@@ -62,8 +62,5 @@ let router = new VueRouter({
 let vm = new Vue({
     el: "#usercenter",
     router,
-    render: h => h(app),
-    mounted() {
-
-    }
+    render: h => h(app)
 })

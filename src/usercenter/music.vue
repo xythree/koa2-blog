@@ -21,7 +21,7 @@
         <Button @click="showModal">删除</Button>
 
         <div class="ipage">
-            <Page :total="total" :page-size="pageSize" @on-change="page" show-elevator></Page>
+            <Page :total="total" :page-size="pageSize" :styles="{'height': '50px'}" @on-change="page" show-elevator></Page>
         </div>
 
         <Modal v-model="modal" title="提示" @on-ok="ok" @on-cancel="cancel">

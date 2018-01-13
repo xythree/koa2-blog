@@ -82,7 +82,8 @@ module.exports = {
         },
         tags: {
             type: String,
-            required: false
+            required: false,
+            default: ""
         },
         flag: {
             type: String,

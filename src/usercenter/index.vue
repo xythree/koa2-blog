@@ -51,56 +51,56 @@
             </MenuItem>
         </Menu>
 
-        <Col span="4" :class="{leftMenu: true}">
-        <Menu @on-select="select" ref="leftMenu" :theme="theme1" :open-names="openNames" :active-name="activeName">
-            <Submenu name="admin" v-if="userinfo.level == 9">
-                <template slot="title">
-                    <Icon type="ios-paper"></Icon>
-                    内容管理
-                </template>
-                <MenuItem name="addArticle">
-                    <router-link to="/editor/new">添加文章</router-link>
-                </MenuItem>
-                <MenuItem name="articleList">
-                    <router-link to="/articleList">文章管理</router-link>
-                </MenuItem>
-                <MenuItem name="comment">评论管理</MenuItem>
-                <MenuItem name="tags">
-                    <router-link to="/tags">标签管理</router-link>
-                </MenuItem>
-            </Submenu>
+        <Col span="4" :class="{leftMenu: true}" >
+            <Menu @on-select="select" ref="leftMenu" :theme="theme1" :open-names="openNames" :active-name="activeName">
+                <Submenu name="admin" v-if="userinfo.level == 9">
+                    <template slot="title">
+                        <Icon type="ios-paper"></Icon>
+                        内容管理
+                    </template>
+                    <MenuItem name="addArticle">
+                        <router-link to="/editor/new">添加文章</router-link>
+                    </MenuItem>
+                    <MenuItem name="articleList">
+                        <router-link to="/articleList">文章管理</router-link>
+                    </MenuItem>
+                    <MenuItem name="comment">评论管理</MenuItem>
+                    <MenuItem name="tags">
+                        <router-link to="/tags">标签管理</router-link>
+                    </MenuItem>
+                </Submenu>
 
-            <Submenu name="user" v-if="userinfo.level == 9">
-                <template slot="title">
-                    <Icon type="ios-people"></Icon>
-                    用户管理
-                </template>
-                <MenuItem name="userlist">用户列表</MenuItem>
-            </Submenu>
+                <Submenu name="user" v-if="userinfo.level == 9">
+                    <template slot="title">
+                        <Icon type="ios-people"></Icon>
+                        用户管理
+                    </template>
+                    <MenuItem name="userlist">用户列表</MenuItem>
+                </Submenu>
 
-            <Submenu name="set">
-                <template slot="title">
-                    <Icon type="settings"></Icon>
-                    设置
-                </template>
-                <MenuItem name="word">
-                    <router-link to="/word">单词</router-link>
+                <Submenu name="set">
+                    <template slot="title">
+                        <Icon type="settings"></Icon>
+                        设置
+                    </template>
+                    <MenuItem name="word">
+                        <router-link to="/word">单词</router-link>
+                    </MenuItem>
+                    <MenuItem name="music">
+                        <router-link to="/music">音乐</router-link>
+                    </MenuItem>
+                </Submenu>
+
+                <MenuItem name="chat">
+                <Icon type="chatbubbles"></Icon>
+                聊天室
                 </MenuItem>
-                <MenuItem name="music">
-                    <router-link to="/music">音乐</router-link>
+
+                <MenuItem name="robot">
+                <Icon type="social-snapchat-outline"></Icon>
+                机器人robot
                 </MenuItem>
-            </Submenu>
-
-            <MenuItem name="chat">
-            <Icon type="chatbubbles"></Icon>
-            聊天室
-            </MenuItem>
-
-            <MenuItem name="robot">
-            <Icon type="social-snapchat-outline"></Icon>
-            机器人robot
-            </MenuItem>
-        </Menu>
+            </Menu>
         </Col>
 
         <div class="irouterview">
@@ -156,6 +156,8 @@ export default {
             this.openNames = [routerActive[this.activeName]]
             this.$nextTick(() => {
                 this.$refs.leftMenu.updateOpened()
+                let height = Math.max(document.body.clientHeight, window.innerHeight)
+                this.$refs.leftMenu.$el.style.height = height - 30 + "px"
             })
         }
     }
