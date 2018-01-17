@@ -7,6 +7,10 @@ $c1: #eee;
 $c2: #ddd;
 $c3: #fff;
 
+.ichatroom {
+    max-width: 760px;
+}
+
 .ilist_box {
     padding: 10px 10px $h 10px;
     overflow: auto;
@@ -224,7 +228,7 @@ $c3: #fff;
             <transition name="fade">
             <div class="iall_list_box" v-show="showAllListStatus">
                 <ul>
-                    <li v-for="item in rooms">{{item}}</li>
+                    <li v-for="item in rooms">{{item.username}}</li>
                 </ul>
             </div>
             </transition>
@@ -266,6 +270,12 @@ $c3: #fff;
 
 import axios from "axios"
 import io from "socket.io-client"
+import { ua } from "js/xythree"
+
+
+if (!ua().mobile && top == window) {
+    location.href = "/chatroom"
+}
 
 const socket = io()
 

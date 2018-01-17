@@ -1,6 +1,17 @@
 const { ip } = require("../modules/function")()
 const mon = require("../modules/model")
 
+function repetition(arr, text1, text2) {
+    let flag = false
+    for (let i = 0, len = arr.length; i < len; i++) {
+        if (arr[i][text1] == text2) {
+            flag = true
+            break
+        }
+    }
+    return flag
+}
+
 module.exports = (router, render, io) => {
     let records = []
     let _ip = ""
@@ -42,7 +53,9 @@ module.exports = (router, render, io) => {
                 records[roomId] = []
             }
 
-            rooms[roomId].push(user)
+            if (!repetition(rooms[roomId], "ip", _ip)) {
+                rooms[roomId].push({ username: user, ip: _ip })
+            }
 
             _s.join(roomId)
             _s.broadcast.emit("rooms", rooms)
@@ -61,7 +74,8 @@ module.exports = (router, render, io) => {
         })
 
         _s.on("message", data => {
-            if (rooms[roomId].indexOf(user) === -1) return
+            //if (rooms[roomId].indexOf(user) === -1) return
+            if (!repetition(rooms[roomId], "username", user)) return
             let mes = {
                 ip: _ip,
                 username: data.username,
@@ -75,7 +89,6 @@ module.exports = (router, render, io) => {
             if (records[roomId].length > maxChatRecordNum) {
                 records[roomId].splice(0, records[roomId].length - maxChatRecordNum)
             }
-
             io.to(roomId).emit("message", mes)
         })
 
@@ -114,6 +127,10 @@ module.exports = (router, render, io) => {
                 ip: _ip
             }
         })
+    })
+
+    router.get("/chatroom", async ctx => {
+        ctx.body = await render("chat/default")
     })
 
     router.get("/chat/roomlist", async ctx => {

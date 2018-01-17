@@ -46,8 +46,8 @@
         <div class="tagsList" >
             <p>文章标签：</p>
             <ul>
-                <li v-for="item in tagsList">
-                    <Tag :name="item.name" checkable :checked="item.checked" @on-change="getTags" color="blue">{{item.name}}</Tag>
+                <li v-for="(item, key) in tagsList">
+                    <Tag :name="item.name" :class="{'tag': true}" checkable :checked="item.checked" @on-change="getTags" color="blue">{{item.name}}</Tag>
                 </li>
             </ul>
         </div>
@@ -76,6 +76,15 @@ export default {
         VueEditor
     },
     methods: {
+        restTag() {
+            let tag = document.querySelectorAll(".tag")
+
+            this.tagsList.forEach((t, i) => {
+                if (t.checked) {
+                    tag[i].click()
+                }
+            })
+        },
         getTags(e, name) {
             this.tagsList.forEach(t => {
                 if (t.name == name) {
@@ -134,14 +143,13 @@ export default {
         clear() {
             this.title = ""
             this.content = ""
-            this.tagsList.forEach(t => {
-                t.checked = false
-            })
+            this.id = ""
+            this.restTag()
         },
         addArticle(d) {
             this.$axios.post("/article/add-edit-article", d).then(result => {
                 if (result.data.code == 200) {
-                    this.clear()
+                    //this.clear()
                     this.$Message.success("提交成功!")
                 }
             })

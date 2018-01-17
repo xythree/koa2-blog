@@ -20,7 +20,8 @@ module.exports = {
         //qrcode: "./static/js/tools/qrcode.js",
         //robot: "./static/js/chat/robot.js",
         //chat: "./static/js/chat/index.js",
-        //chatroom: "./static/js/chat/chatroom.js",
+        chatroom: "./static/js/chat/chatroom.js",
+        chatdefault: "./static/js/chat/default.js",
         //index: "./static/js/index.js",
         usercenter: "./static/js/usercenter/index.js",
         login: "./static/js/login.js"
