@@ -34,7 +34,7 @@ module.exports = (router, render) => {
 
         } else if (skip != void 0) {
 
-            result.data = await sql.article.find("", +skip, +limit)
+            result.data = await sql.article.find({}, +skip, +limit)
             result.count = await sql.article.count({})
 
         }

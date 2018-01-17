@@ -4,7 +4,7 @@ const validator = require("validator")
 module.exports = (router, render) => {
 
     router.use("/usercenter/*", async(ctx, next) => {
-        ctx.session.username = "xythree"
+        //ctx.session.username = "xythree"
         let username = ctx.session.username
 
         if (username) {
